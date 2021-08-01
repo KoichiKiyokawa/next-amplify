@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import Link from "next/link"
 import Modal, { useModal } from "../domains/core/components/Modal"
@@ -12,12 +12,11 @@ type FormData = {
 const Login = () => {
   const { register, handleSubmit } = useForm<FormData>()
 
-  const onSubmit = useCallback((data: FormData) => {
+  const onSubmit = (data: FormData) => {
     alert(JSON.stringify(data))
-  }, [])
+  }
 
   const [count, setCount] = useState(0)
-
   const { isShowing, show, hide } = useModal()
 
   return (
