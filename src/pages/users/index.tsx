@@ -1,14 +1,14 @@
-import { User } from "@prisma/client"
+import { PrismaClient, User } from "@prisma/client"
 import { GetServerSideProps } from "next"
 import Link from "next/link"
 import React from "react"
-import { prisma } from "src/modules/prisma"
 
 type Props = {
   users: User[]
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const prisma = new PrismaClient()
   const users = await prisma.user.findMany()
   return { props: { users } }
 }
