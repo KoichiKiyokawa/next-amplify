@@ -1,6 +1,8 @@
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 import { useForm } from "react-hook-form"
 import Link from "next/link"
+import Modal, { useModal } from "../domains/core/components/Modal"
+import React from "react"
 
 type FormData = {
   email: string
@@ -14,8 +16,20 @@ const Login = () => {
     alert(JSON.stringify(data))
   }, [])
 
+  const [count, setCount] = useState(0)
+
+  const { isShowing, show, hide } = useModal()
+
   return (
     <>
+      <Modal show={isShowing} onClose={hide}>
+        <p>delete ?</p>
+        <button onClick={hide}>cancel</button>
+        <button onClick={() => alert("ok")} className="ml-4">
+          ok
+        </button>
+      </Modal>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="border rounded max-w-[640px] m-auto p-4"
@@ -47,6 +61,11 @@ const Login = () => {
         </div>
       </form>
 
+      <button onClick={show}>remove</button>
+
+      <p>{count}</p>
+      <button onClick={() => setCount((prev) => prev + 1)}>+1</button>
+
       <style jsx>{`
         form > label + label {
           @apply block mt-4;
@@ -59,4 +78,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default React.memo(Login)
