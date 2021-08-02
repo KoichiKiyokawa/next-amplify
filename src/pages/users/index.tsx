@@ -7,7 +7,7 @@ type Props = {
   users: User[]
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const prisma = new PrismaClient()
   const users = await prisma.user.findMany()
   return { props: { users } }

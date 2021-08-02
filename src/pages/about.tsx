@@ -5,7 +5,7 @@ import bigImage from "src/assets/big.jpg"
 const About = () => {
   return (
     <>
-      <Image src={bigImage} alt=""></Image>
+      <Image src={bigImage} alt="" layout="responsive" />
       <Link href="/users">users</Link>
     </>
   )
