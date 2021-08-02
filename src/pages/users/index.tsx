@@ -1,15 +1,15 @@
-import { User } from "@prisma/client"
-import { GetServerSideProps } from "next"
+import { GetStaticProps } from "next"
 import Link from "next/link"
 import React from "react"
 
 type Props = {
-  users: User[]
+  users: { id: number; name: string; email: string }[]
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: { users: await fetch("/api/users").then((res) => res.json()) },
+    revalidate: 60,
   }
 }
 
