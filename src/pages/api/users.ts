@@ -1,7 +1,4 @@
-import { PrismaClient, User } from "@prisma/client"
 import { NextApiHandler } from "next"
-
-const prisma = new PrismaClient()
 
 const handler: NextApiHandler = (req, res) => {
   switch (req.method) {
@@ -14,13 +11,19 @@ const handler: NextApiHandler = (req, res) => {
   }
 }
 
-const get: NextApiHandler<User[]> = async (_req, res) => {
-  res.status(200).json(await prisma.user.findMany())
+const get: NextApiHandler = async (_req, res) => {
+  res.status(200).json(
+    Array.from(Array(10).keys()).map((i) => ({
+      id: i,
+      name: `user${i}`,
+      email: `user${i}@example.com`,
+    }))
+  )
 }
 
-const post: NextApiHandler<User> = async (req, res) => {
-  const createdUser = await prisma.user.create({ data: req.body })
-  res.status(200).json(createdUser)
+const post: NextApiHandler = async (_req, res) => {
+  await new Promise((res) => setTimeout(res, 1000))
+  res.status(200)
 }
 
 export default handler
