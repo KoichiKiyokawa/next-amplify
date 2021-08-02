@@ -1,4 +1,4 @@
-import { PrismaClient, User } from "@prisma/client"
+import { User } from "@prisma/client"
 import { GetServerSideProps } from "next"
 import Link from "next/link"
 import React from "react"
@@ -8,9 +8,9 @@ type Props = {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const prisma = new PrismaClient()
-  const users = await prisma.user.findMany()
-  return { props: { users } }
+  return {
+    props: { users: await fetch("/api/users").then((res) => res.json()) },
+  }
 }
 
 const UserIndex: React.VFC<Props> = (props) => {
