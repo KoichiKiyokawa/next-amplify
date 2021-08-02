@@ -1,9 +1,8 @@
-import { User } from "@prisma/client"
 import { useRouter } from "next/dist/client/router"
 import React from "react"
 import { useForm } from "react-hook-form"
 
-type FormData = User
+type FormData = { id: number; name: string; email: string }
 
 export const UserNew = () => {
   const { register, handleSubmit } = useForm<FormData>()
